@@ -1,8 +1,5 @@
-# [django-places](https://pypi.org/project/dj-places/)
 
-[![PyPI](https://badge.fury.io/py/dj-places.png)](https://badge.fury.io/py/dj-places)
-
-A Django app for store places with autocomplete function and a related map to the selected place.
+A Django package for managing a location field in your model, complete with Django-admin integration, as well with a serializer field to be able to use it in a separate front-end. Check further down for instructions for a JavaScript-component to use with the field in your Django-backend.
 
 ## Quickstart
 ----------
