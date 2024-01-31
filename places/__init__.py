@@ -1,28 +1,51 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from decimal import Decimal
-
 default_app_config = 'places.apps.PlacesConfig'
 __version__ = '5.2.1'
 
 
 class Places(object):
-    def __init__(self, place, latitude, longitude, name=None, formatted_address=None):
+    def __init__(self, country, city, state, latitude, longitude, name=None, formatted_address=None):
 
         if isinstance(latitude, float) or isinstance(latitude, int):
             latitude = str(latitude)
         if isinstance(longitude, float) or isinstance(longitude, int):
             longitude = str(longitude)
 
-        self.place = place
+        self.country = country
+        self.city = city
         self.name = name 
+        self.state = state
         self.formatted_address = formatted_address
-        self.latitude = Decimal(latitude)
-        self.longitude = Decimal(longitude)
+        self.latitude = latitude
+        self.longitude = longitude
+
+    def to_dict(self):
+        return {
+            'country': self.country,
+            'city': self.city,
+            'state': self.state,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'name': self.name,
+            'formatted_address': self.formatted_address
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return Places(
+            country=data.get('country'),
+            city=data.get('city'),
+            state=data.get('state'),
+            latitude=data.get('latitude'),
+            longitude=data.get('longitude'),
+            name=data.get('name'),
+            formatted_address=data.get('formatted_address')
+        )
 
     def __str__(self):
-        return "%s, %s, %s, %s, %s" % (self.place, self.latitude, self.longitude, self.name, self.formatted_address)
+        return "%s, %s, %s, %s, %s, %s, %s" % (self.country, self.city, self.state, self.latitude, self.longitude, self.name, self.formatted_address)
 
     def __repr__(self):
         return "Places(%s)" % str(self)
