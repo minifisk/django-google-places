@@ -3,14 +3,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "dj-places"
+name = "django-google-places"
 dynamic = ["version"]
-description = "A django app for store places using Google Maps API"
+description = "A django app for storing places using Google Maps API"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.6"
 authors = [
-  { name = "Oscar Cortez", email = "om.cortez.2010@gmail.com" },
+  { name = "Alexander Lindgren", email = "alexlindgren08@gmail.com" },
 ]
 keywords = [
     "django",
@@ -37,9 +37,6 @@ dependencies = [
 
 [project.urls]
 Funding = "https://donate.pypi.org"
-Homepage = "http://oscarmcm.github.io/django-places/"
-Source = "https://github.com/oscarmcm/django-places/"
-Tracker = "https://github.com/oscarmcm/django-places/issues"
 
 [tool.hatch.version]
 path = "places/__init__.py"
