@@ -37,20 +37,17 @@ class PlacesField(forms.MultiValueField):
     def compress(self, value_list):
         if value_list:
             place = Places(
-                latitude=value_list[1],
-                longitude=value_list[2],
-                name=value_list[3],
-                formatted_address=value_list[4],
-                country=value_list[5],
-                city=value_list[6],
-                state=value_list[7],
+            latitude=value_list[1],
+            longitude=value_list[2],
+            name=value_list[3],
+            formatted_address=value_list[4],
+            country=value_list[5],
+            city=value_list[6],
+            state=value_list[7],
             )
             return place
-        return ""
+        return None
 
-
-    def clean(self, value):
-        return value
     
     def prepare_value(self, value):
         if isinstance(value, Places):

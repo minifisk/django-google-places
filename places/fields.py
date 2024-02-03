@@ -3,10 +3,7 @@
 from __future__ import unicode_literals
 
 import json
-from decimal import Decimal
-import decimal
 
-from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.db.models import JSONField
 
@@ -26,20 +23,16 @@ class PlacesField(JSONField):
         super(PlacesField, self).__init__(*args, **kwargs)
 
     def to_python(self, value):
-        if isinstance(value, Places):
-            return value
 
-        # Check if value is a string representation of a list
+        if isinstance(value, Places):
+            value = value
+
         if isinstance(value, str):
-            try:
-                value = json.loads(value)
-            except (ValueError, TypeError):
-                pass  # If it's not a JSON string, proceed with the original value
+            value = json.loads(value)
 
         if isinstance(value, list):
-            # Process list to create a Places object
             if len(value) >= 8:
-                return Places(
+                value = Places(
                     country=value[5],
                     city=value[6],
                     state=value[7],
@@ -49,22 +42,22 @@ class PlacesField(JSONField):
                     formatted_address=value[4]
                 )
 
-        if value is None or isinstance(value, dict):
-            return value
+        if isinstance(value, dict):
+            value = Places(
+                country=value.get('country', None),
+                city=value.get('city', None),
+                state=value.get('state', None),
+                latitude=value.get('latitude', None),
+                longitude=value.get('longitude', None),
+                name=value.get('name', None),
+                formatted_address=value.get('formatted_address', None),
+            )
 
-        # Handle string representation of a dict
-        try:
-            value_dict = json.loads(value)
-            return Places.from_dict(value_dict)
-        except (ValueError, TypeError):
-            # In case the string cannot be converted to a dict
-            return None
+        return value
 
     def get_prep_value(self, value):
         if isinstance(value, Places):
             return value.to_dict()
-
-        # If the value is already a dict or None, just use it as-is
         return value
     
     def clean(self, value, model_instance):

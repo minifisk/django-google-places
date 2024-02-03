@@ -44,7 +44,6 @@ class PlacesWidget(widgets.MultiWidget):
         if value:
             if isinstance(value, Places):
                 value = value.to_dict()
-            print('value from decompress', value)
             place = f'{value["country"]}, {value["city"]}, {value["formatted_address"]}'
             return [place, value["latitude"], value["longitude"], value["name"], value["formatted_address"], value["country"], value["city"], value["state"]]
         return [None, None]
