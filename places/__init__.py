@@ -26,8 +26,8 @@ class Places(object):
             'country': self.country,
             'city': self.city,
             'state': self.state,
-            'latitude': self.latitude,
-            'longitude': self.longitude,
+            'latitude': float(self.latitude), # Convert Decimal to float
+            'longitude': float(self.longitude), # Convert Decimal to float
             'name': self.name,
             'formatted_address': self.formatted_address
         }
